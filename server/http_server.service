@@ -3,10 +3,10 @@ Description=The Http Server
 After=network-online.target nss-lookup.target
 
 [Service]
-User=root
-Group=root
-ExecStart=/opt/http_server/bin/http_server
-WorkingDirectory=/opt/http_server/bin/
+User=devops
+Group=devops
+ExecStart=/home/devops/http_server/bin/http_server
+WorkingDirectory=/home/devops/http_server/bin/
 Restart=always
 TimeoutStopSec=15
 
