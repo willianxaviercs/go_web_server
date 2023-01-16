@@ -20,7 +20,7 @@ echo "Deploying branch ${BLUE}$branch${RESET}..."
 echo "Stoping service"
 systemctl stop http_server
 
-do_as devops <<'SCRIPT'
+do_as devops <<SCRIPT
     set -euo pipefail
     cd /home/devops/http_server
     git fetch --all
@@ -29,7 +29,7 @@ SCRIPT
 
 echo "Building binary"
 
-do_as devops <<'SCRIPT'
+do_as devops <<SCRIPT
     set -euo pipefail
     cd /home/devops/http_server/
     mkdir -p bin
