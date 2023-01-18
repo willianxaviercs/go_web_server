@@ -118,10 +118,10 @@ fi
 
 cat <<HELP
 Setup complete!
-${BLUE}Edit the config file:${RESET}
+${ORANGE}Edit the config file:${RESET}
         vim ./src/config/config.go
-${BLUE}Edit the service file:${RESET}
+${ORANGE}Edit the service file:${RESET}
         vim /etc/systemd/system/http_server.service
-${BLUE}Deploy the server:${RESET}
+${ORANGE}Deploy the server:${RESET}
         ./server/deploy.sh
 HELP

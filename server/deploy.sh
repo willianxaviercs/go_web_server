@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# INFO: Deployment steps
+#       1 - Stop what needs to be stopped (services, app, etc)
+#       2 - Fetch branch to be deployed
+#       3 - Apply database migrations
+#       4 - Start what was stopped
+#       5 - (Optional) - discord webhook info about the deploy
+
+ORANGE=$'\e[38;2;234;138;4m'
 BLUE_BOLD='\e[1;34m'
 RESET='\e[0m'
 
@@ -15,9 +23,8 @@ if [ -z "$branch" ]; then
         read branch
 fi
 
-echo "Deploying branch ${BLUE}$branch${RESET}..."
+echo -e "Deploying branch ${ORANGE}$branch${RESET}..."
 
-echo "Stoping service"
 systemctl stop http_server
 
 do_as devops <<SCRIPT
@@ -27,8 +34,6 @@ do_as devops <<SCRIPT
     git reset --hard origin/$branch
 SCRIPT
 
-echo "Building binary"
-
 do_as devops <<SCRIPT
     set -euo pipefail
     cd /home/devops/http_server/
@@ -36,6 +41,7 @@ do_as devops <<SCRIPT
     go build -o ./bin/http_server ./src/main.go
 SCRIPT
 
-echo "Starting service"
 systemctl daemon-reload
 systemctl start http_server
+
+echo "Finished!"
